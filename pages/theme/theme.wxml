@@ -1,0 +1,16 @@
+<!--pages/theme/theme.wxml-->
+<import src="../tpls/products/products-tpl.wxml"/>
+
+<view class="container theme-container" hidden="{{!loadingHidden}}">
+  <view class="theme-header">
+  <!--头图不显示-->
+    <image mode="aspectFill" src="{{themeInfo.head_img.url}}"></image>
+  </view>
+  <view class="theme-main">
+    <template is="products" data="{{productsArr:themeInfo.products}}"/>
+  </view>
+</view>
+
+<loading hidden="{{loadingHidden}}">
+  加载中...
+</loading>
