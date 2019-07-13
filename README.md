@@ -34,6 +34,8 @@ export { Config }
 ![订单支付](./snapshoot/pay.jpg)
 ###   订单支付失败
 ![订单支付失败](./snapshoot/pay_fail.jpg)
+###   订单详情页
+![订单详情页](./snapshoot/order.jpg)
 ###   用户信息
 ![用户信息](./snapshoot/user_1.jpg)
 ![用户信息](./snapshoot/user_2.jpg)
