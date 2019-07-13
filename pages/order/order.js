@@ -19,12 +19,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options);
     var from = options.from;
     if(from == 'cart'){
       this._fromCart(options.account);
     }else{
       var id = options.id;
-      this._fromOrder(id);
+      this.data.id = id;
+      this._fromOrder(this.data.id);
     }
   },
 
@@ -45,10 +47,9 @@ Page({
 
   _fromOrder: function(id){
     if (id) {
-      var that = this;
       //下单后，支付成功或者失败后，点左上角返回时能够更新订单状态 所以放在onshow中
       order.getOrderInfoById(id, (data) => {
-        that.setData({
+        this.setData({
           orderStatus: data.status,
           productsArr: data.snap_items,
           account: data.total_price,
@@ -61,7 +62,7 @@ Page({
         // 快照地址
         var addressInfo = data.snap_address;
         addressInfo.totalDetail = address.setAddressInfo(addressInfo);
-        that._bindAddressInfo(addressInfo);
+        this._bindAddressInfo(addressInfo);
       });
     }
   },
@@ -141,6 +142,12 @@ Page({
       }
     });
   },
+
+  //
+  _oneMoresTimePay: function(){
+    this._execPay(this.data.id);
+  },
+
 
   /*开始支付
   * params:
