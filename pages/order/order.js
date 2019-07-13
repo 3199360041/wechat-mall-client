@@ -12,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    id: -1  
   },
 
   /**
@@ -64,7 +64,114 @@ Page({
   },
 
   pay: function(){
+    if(!this.data.addressInfo){
+      this.showTips('下单提示', '请填写您的收货地址');
+      return ;
+    }
 
+    if(this.data.orderStatus == 0){
+      this._firstTimePay();
+    }else{
+      this._oneMoresTimePay();
+    }
+  },
+
+  _firstTimePay: function(){
+    var orderInfo = [],
+    productInfo = this.data.productsArr;
+    
+    for(let i=0;i<productInfo.length;i++){
+      orderInfo.push({
+        product_id: productInfo[i].id,
+        count: productInfo[i].counts
+      });
+    }
+
+    var _this = this;
+    
+    //分两步： 第一步：生成订单，第二步：支付
+    order.doOrder(orderInfo, (data)=>{
+      //生成订单成功
+      if(data.pass){
+        var id = data.order_id
+        _this.data.id = id;
+        _this.data.fromCartFlag = false;
+
+        //支付开始
+        _this._execPay(id);
+      }else{
+        _this._orderFail(data);
+      }
+    });
+  },
+
+  /*开始支付
+  * params:
+  * id - { int }订单id
+  * callback([0-2]) 0: 商品缺货等原因造成无法支付，1: 支付失败或取消 ，2: 支付成功
+  */
+  _execPay: function (id) {
+    // if (!order.onPay) {
+    //   this.showTips('支付提示', '本产品仅用于演示，支付系统已屏蔽', true);
+    //   this.deleteProducts();
+    //   return;
+    // }
+    var _this = this;
+    order.execPay(id, (statusCode) => {
+      if (statusCode != 0) {
+        _this.deleteProducts();
+        var flag = statusCode == 2;
+        wx.navigateTo({
+          url: '../pay-result/pay-result?id='+id+'&flag='+flag+'&from=order'
+        });
+      }
+    });
+  },
+
+
+  /*
+  *下单失败
+  * params:
+  * data - {obj} 订单结果信息
+  * */
+  _orderFail: function (data) {
+    var nameArr = [],
+      name = '',
+      str = '',
+      pArr = data.pStatusArray;
+    for (let i = 0; i < pArr.length; i++) {
+      if (!pArr[i].haveStock) {
+        name = pArr[i].name;
+        if (name.length > 15) {
+          name = name.substr(0, 12) + '...';
+        }
+        nameArr.push(name);
+        if (nameArr.length >= 2) {
+          break;
+        }
+      }
+    }
+    str += nameArr.join('、');
+    if (nameArr.length > 2) {
+      str += ' 等';
+    }
+    str += ' 缺货';
+    wx.showModal({
+      title: '下单失败',
+      content: str,
+      showCancel: false,
+      success: function (res) {
+
+      }
+    });
+  },
+
+  deleteProducts: function(){
+    var ids = [],arr = this.data.productsArr;
+    for(let i=0;i<arr.length;i++){
+      ids.push(arr[i].id);
+    }
+    cart.delete(ids);
   },
 
   /**

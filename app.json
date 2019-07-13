@@ -49,5 +49,6 @@
     "borderStyle": "white",
     "position": "bottom"
   },
+  "debug": true,
   "sitemapLocation": "sitemap.json"
 }

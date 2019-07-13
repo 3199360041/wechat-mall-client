@@ -12,7 +12,7 @@ class Home extends Base{
         callback && callback(res.items);
       }
     };
-    this.request(params);
+    this.request(params, true);
   }
 
   getThemeData(callback){
@@ -22,7 +22,7 @@ class Home extends Base{
         callback && callback(data);
       }
     };
-    this.request(params); 
+    this.request(params, true); 
   }
 
   getProductsData(callback){
@@ -32,7 +32,7 @@ class Home extends Base{
         callback && callback(data);
       }
     };
-    this.request(params);
+    this.request(params, true);
   }
 }
 

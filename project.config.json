@@ -66,9 +66,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "cart",
 					"pathName": "pages/cart/cart",
+					"query": "",
 					"scene": null
 				}
 			]
