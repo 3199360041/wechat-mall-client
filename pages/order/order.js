@@ -12,27 +12,64 @@ Page({
    * 页面的初始数据
    */
   data: {
-    id: -1  
+    id: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var from = options.from;
+    if(from == 'cart'){
+      this._fromCart(options.account);
+    }else{
+      var id = options.id;
+      this._fromOrder(id);
+    }
+  },
 
+  _fromCart: function(account){
     var productsArr = cart.getCartDataFromLocal(true);
-    this.data.account = options.account;
+    this.data.account = account;
 
     this.setData({
       productsArr: productsArr,
-      account: options.account,
-      orderStatus: 0 
+      account: account,
+      orderStatus: 0
     });
 
-    address.getAddress((res)=>{
+    address.getAddress((res) => {
       this._bindAddressInfo(res);
     });
+  },
 
+  _fromOrder: function(id){
+    if (id) {
+      var that = this;
+      //下单后，支付成功或者失败后，点左上角返回时能够更新订单状态 所以放在onshow中
+      order.getOrderInfoById(id, (data) => {
+        that.setData({
+          orderStatus: data.status,
+          productsArr: data.snap_items,
+          account: data.total_price,
+          basicInfo: {
+            orderTime: data.create_time,
+            orderNo: data.order_no
+          },
+        });
+
+        // 快照地址
+        var addressInfo = data.snap_address;
+        addressInfo.totalDetail = address.setAddressInfo(addressInfo);
+        that._bindAddressInfo(addressInfo);
+      });
+    }
+  },
+
+  onShow: function () {
+    if(this.data.id){
+      this._fromOrder(this.data.id);
+    }
   },
 
   editAddress: function(event) {

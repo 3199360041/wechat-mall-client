@@ -63,6 +63,32 @@ class Order extends Base{
     this.request(allParams);
   }
 
+  getOrderInfoById(id, callback){
+    var _this = this;
+    var allParams = {
+      url: 'order/' + id,
+      type: 'GET',
+      sCallback: function(data){
+        callback && callback(data);
+      },
+      eCallback: function(){}
+    };
+    this.request(allParams);
+  }
+
+  getOrders(pageIndex, callback){
+    var params = {
+      url: 'order/by_user',
+      type: 'GET',
+      data: { page: pageIndex },
+      sCallback: function(res){
+        callback && callback(res);
+      }
+    };
+
+    this.request(params);
+  }
+
 }
 
 export { Order }
