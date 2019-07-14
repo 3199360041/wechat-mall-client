@@ -1,28 +1,32 @@
 @import "../tpls/base.wxss";
 @import "../tpls/products/products-tpl.wxss";
-.food-container{
 
+.food-container {
 }
-.swiper{
+
+.swiper {
   height: 400rpx;
   width: 100%;
 }
-.swiper-box{
+
+.swiper-box {
   overflow-x: hidden;
 }
-.banner-item{
-  height: 100%;
-  width: 100%;
-}
-.banner-item image{
+
+.banner-item {
   height: 100%;
   width: 100%;
 }
 
-.home-main-header{
+.banner-item image {
+  height: 100%;
+  width: 100%;
+}
+
+.home-main-header {
   display: flex;
   height: 60rpx;
-  color: #AB956D;
+  color: #ab956d;
   background-color: #fff;
   font-size: 32rpx;
   align-items: center;
@@ -30,49 +34,55 @@
   margin: 20rpx 0;
 }
 
-.home-main-theme{
+.home-main-theme {
   /*margin: 20rpx 0;*/
 }
-.theme-box{
+
+.theme-box {
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
 }
-.theme-item{
+
+.theme-item {
   display: flex;
-  height:375rpx;
+  height: 375rpx;
   width: 50%;
   border-bottom: 4rpx solid #fff;
   position: relative;
   box-sizing: border-box;
 }
-.theme-item:first-child{
-  border-right:4rpx solid #fff;
+
+.theme-item:first-child {
+  border-right: 4rpx solid #fff;
 }
-.theme-item.big{
+
+.theme-item.big {
   width: 100%;
 }
-.theme-item.big .theme-icon view{
+
+.theme-item.big .theme-icon view {
   margin: 0 auto;
   width: 150rpx;
   height: 60rpx;
   border-radius: 60rpx;
   line-height: 60rpx;
-  border:1rpx solid #fff;
+  border: 1rpx solid #fff;
   text-align: center;
   font-size: 24rpx;
 }
-.theme-item image{
+
+.theme-item image {
   height: 100%;
   width: 100%;
 }
-.theme-icon{
-  margin-top:10rpx;
+
+.theme-icon {
+  margin-top: 10rpx;
   height: 48rpx;
 }
-.theme-icon image{
+
+.theme-icon image {
   height: 48rpx;
   width: 48rpx;
 }
-
-

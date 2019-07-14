@@ -1,24 +1,24 @@
 import { Base } from '../../utils/base.js'
 
-class Category extends Base{
-  constructor(){
+class Category extends Base {
+  constructor() {
     super()
   }
 
-  getCategoryType(callback){
+  getCategoryType(callback) {
     var param = {
       url: 'category/all',
-      sCallback: function(data){
+      sCallback: function(data) {
         callback && callback(data);
       }
     };
     this.request(param);
   }
 
-  getProductsByCategory(id, callback){
+  getProductsByCategory(id, callback) {
     var param = {
       url: 'product/by_category?id=' + id,
-      sCallback: function(data){
+      sCallback: function(data) {
         callback && callback(data);
       }
     };

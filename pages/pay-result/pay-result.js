@@ -1,4 +1,3 @@
-// pages/pay-result/pay-result.js
 Page({
 
   /**
@@ -20,7 +19,7 @@ Page({
     });
   },
 
-  viewOrder: function(event){
+  viewOrder: function (event) {
     wx.navigateBack({
       delta: 1
     });

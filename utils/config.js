@@ -1,5 +1,5 @@
-class Config{
-  constructor(){
+class Config {
+  constructor() {
 
   }
 }

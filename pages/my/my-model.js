@@ -1,7 +1,7 @@
 import { Base } from '../../utils/base.js'
 
 class My extends Base {
-  constructor(){
+  constructor() {
     super()
   }
 
@@ -9,9 +9,9 @@ class My extends Base {
   getUserInfoData(cb) {
     var _this = this;
     wx.login({
-      success: function () {
+      success: function() {
         wx.getUserInfo({
-          success: function (res) {
+          success: function(res) {
             typeof cb == "function" && cb(res.userInfo);
 
             //将用户昵称 提交到服务器
@@ -20,7 +20,7 @@ class My extends Base {
             }
 
           },
-          fail: function (res) {
+          fail: function(res) {
             typeof cb == "function" && cb({
               avatarUrl: '../../imgs/icon/user@default.png',
               nickName: '零食小贩'
@@ -32,7 +32,7 @@ class My extends Base {
     })
   }
 
-  _updateUserInfo(userInfo){
+  _updateUserInfo(userInfo) {
 
   }
 

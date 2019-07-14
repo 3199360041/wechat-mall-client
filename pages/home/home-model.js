@@ -1,34 +1,34 @@
 import { Base } from '../../utils/base.js'
 
-class Home extends Base{
-  constructor(){
+class Home extends Base {
+  constructor() {
     super();
   }
 
-  getBannerData(id, callback){
+  getBannerData(id, callback) {
     var params = {
       url: 'banner/' + id,
-      sCallback: function(res){
+      sCallback: function(res) {
         callback && callback(res.items);
       }
     };
     this.request(params, true);
   }
 
-  getThemeData(callback){
+  getThemeData(callback) {
     var params = {
       url: 'theme?ids=1,2,3',
-      sCallback: function(data){
+      sCallback: function(data) {
         callback && callback(data);
       }
     };
-    this.request(params, true); 
+    this.request(params, true);
   }
 
-  getProductsData(callback){
+  getProductsData(callback) {
     var params = {
       url: 'product/recent',
-      sCallback: function(data){
+      sCallback: function(data) {
         callback && callback(data);
       }
     };

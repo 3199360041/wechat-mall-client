@@ -8,12 +8,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+
   },
-  onLoad: function(){
+  onLoad: function() {
     this._loadData();
   },
-  _loadData: function(){
+  _loadData: function() {
     var id = 1;
     //swiper resources
     home.getBannerData(id, (res) => {
@@ -36,13 +36,13 @@ Page({
       });
     });
   },
-  onProductsItemTap: function(event){
+  onProductsItemTap: function(event) {
     var id = home.getDataSet(event, 'id');
     wx.navigateTo({
       url: '../product/product?id=' + id,
-    }); 
+    });
   },
-  onThemesItemTap: function (event) {
+  onThemesItemTap: function(event) {
     var id = home.getDataSet(event, 'id');
     var name = home.getDataSet(event, 'name');
     wx.navigateTo({

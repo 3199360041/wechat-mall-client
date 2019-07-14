@@ -1,11 +1,11 @@
 import { Base } from '../../utils/base.js'
 
-class Product extends Base{
-  constructor(){
+class Product extends Base {
+  constructor() {
     super();
   }
 
-  getDetailInfo(id, callback){
+  getDetailInfo(id, callback) {
     var params = {
       url: 'product/' + id,
       sCallback: function (res) {

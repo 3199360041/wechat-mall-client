@@ -1,7 +1,8 @@
 import { Product } from './product-model.js'
 import { Cart } from '../cart/cart-model.js'
+
 var product = new Product();
-var cart = new Cart(); 
+var cart = new Cart();
 
 Page({
 
@@ -10,7 +11,7 @@ Page({
    */
   data: {
     id: null,
-    countsArray: [1,2,3,4,5,6,7,8,9,10],
+    countsArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     productCount: 1,
     currentTabsIndex: 0
   },
@@ -24,7 +25,7 @@ Page({
     this._loadData();
   },
 
-  _loadData: function(){
+  _loadData: function () {
     product.getDetailInfo(this.data.id, (data) => {
       this.setData({
         cartTotalCounts: cart.getCartTotalCounts(),
@@ -33,26 +34,26 @@ Page({
     })
   },
 
-  bindPickerChange: function(event){
+  bindPickerChange: function (event) {
     var index = event.detail.value;
-    var selectedCount  = this.data.countsArray[index];
+    var selectedCount = this.data.countsArray[index];
     this.setData({
       productCount: selectedCount
     });
   },
 
 
-  onTabsItemTap: function(event){
+  onTabsItemTap: function (event) {
     var index = product.getDataSet(event, 'index');
     this.setData({
       'currentTabsIndex': index
     });
   },
 
-  onAddingToCartTap: function(event){
+  onAddingToCartTap: function (event) {
     //先添加后更新购物车数量
     this.addToCart();
-    var counts = this.data.cartTotalCounts + this.data.productCount;
+    //var counts = this.data.cartTotalCounts + this.data.productCount;
     //后更新购物车数量
     this.setData({
       cartTotalCounts: cart.getCartTotalCounts()
@@ -60,72 +61,23 @@ Page({
 
   },
 
-  addToCart: function(){
+  addToCart: function () {
     var tempObj = {};
     var keys = ['id', 'name', 'main_img_url', 'price'];
 
-    for(var key in this.data.product){
-      if(keys.indexOf(key) >= 0)
-      {
+    for (var key in this.data.product) {
+      if (keys.indexOf(key) >= 0) {
         tempObj[key] = this.data.product[key];
       }
     }
-    // debugger;
+
     cart.add(tempObj, this.data.productCount);
   },
 
-  onCartTap: function(event){
+  onCartTap: function (event) {
     wx.switchTab({
       url: '/pages/cart/cart',
-    });  
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    
-  }
+  
 })

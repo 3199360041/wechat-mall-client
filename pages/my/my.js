@@ -20,32 +20,32 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this._loadData();
     this._getAddressInfo();
   },
 
-  onShow: function(){
+  onShow: function() {
     var newOrderFlag = order.hasNewOrder();
 
-    if(newOrderFlag){
+    if (newOrderFlag) {
       this.refresh();
     }
     // this.refresh();
   },
 
-  refresh: function(){
+  refresh: function() {
     var that = this;
     this.data.orderArr = [];
-    this._getOrders(()=>{
+    this._getOrders(() => {
       this.data.isLoadedAll = false,
-      this.data.pageIndex = 1;
+        this.data.pageIndex = 1;
       order.execSetStorageSync(false);
     });
   },
 
-  _loadData: function(){
-    my.getUserInfoData((data)=>{
+  _loadData: function() {
+    my.getUserInfoData((data) => {
       this.setData({
         userInfo: data
       });
@@ -54,16 +54,16 @@ Page({
     this._getOrders();
   },
 
-  _getOrders: function(callback){
-    order.getOrders(this.data.pageIndex, (res)=>{
+  _getOrders: function(callback) {
+    order.getOrders(this.data.pageIndex, (res) => {
       var data = res.data;
 
-      if(data.length > 0){
+      if (data.length > 0) {
         this.data.orderArr.push.apply(this.data.orderArr, data);
         this.setData({
           orderArr: this.data.orderArr
         });
-      }else{
+      } else {
         this.data.isLoadedAll = true;
       }
 
@@ -71,42 +71,42 @@ Page({
     });
   },
 
-  onReachBottom: function(){
-    if(!this.data.isLoadedAll){
-     this.data.pageIndex++;
-     this._getOrders(); 
+  onReachBottom: function() {
+    if (!this.data.isLoadedAll) {
+      this.data.pageIndex++;
+      this._getOrders();
     }
   },
 
-  _getAddressInfo: function(){
-    address.getAddress((addressInfo)=>{
+  _getAddressInfo: function() {
+    address.getAddress((addressInfo) => {
       this._bindAddressInfo(addressInfo);
     });
   },
 
-  _bindAddressInfo: function (addressInfo){
+  _bindAddressInfo: function(addressInfo) {
     this.setData({
       addressInfo: addressInfo
     });
   },
 
-  showOrderDetailInfo: function(event){
+  showOrderDetailInfo: function(event) {
     var id = order.getDataSet(event, 'id');
 
     wx.navigateTo({
-      url: '../order/order?from=order&id='+id
-    }); 
-    
+      url: '../order/order?from=order&id=' + id
+    });
+
   },
 
-  rePay: function(event){
+  rePay: function(event) {
     var id = order.getDataSet(event, 'id'),
-    index = order.getDataSet(event, 'index');
+      index = order.getDataSet(event, 'index');
 
     this._execPay(id, index);
   },
 
-  _execPay: function(id, index){
+  _execPay: function(id, index) {
     var _this = this;
     order.execPay(id, (statusCode) => {
       if (statusCode > 0) {
@@ -131,27 +131,27 @@ Page({
   },
 
   /*
- * 提示窗口
- * params:
- * title - {string}标题
- * content - {string}内容
- * flag - {bool}是否跳转到 "我的页面"
- */
-  showTips: function (title, content) {
+   * 提示窗口
+   * params:
+   * title - {string}标题
+   * content - {string}内容
+   * flag - {bool}是否跳转到 "我的页面"
+   */
+  showTips: function(title, content) {
     wx.showModal({
       title: title,
       content: content,
       showCancel: false,
-      success: function (res) {
+      success: function(res) {
 
       }
     });
   },
 
-  editAddress: function (event) {
+  editAddress: function(event) {
     var _this = this;
     wx.chooseAddress({
-      success: function (res) {
+      success: function(res) {
 
         var addressInfo = {
           name: res.userName,
